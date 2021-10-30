@@ -98,11 +98,13 @@ sidebar_position: 3
   //          storages : auto-scaling storage canister ids
   tokenInfo : () -> (TokenInfo) query;
 ```
-### approve
+### allowance
 ```rust
   // Returns the amount which spender is still allowed to withdraw from owner.
   allowance:(owner: text, spender: text)->(nat) query;
-
+```
+### approve
+```rust
   // Allows `spender` to withdraw from your account multiple times, up to the `value` amount.
   // If this function is called again it overwrites the current allowance with value.
   // If `calldata` is not null and `spender` is canister, approve means approveAndCall.
