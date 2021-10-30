@@ -30,10 +30,10 @@ type Fee = record { rate : nat; minimum : nat };
           fee setting
           decimals
           name
-          total_supply
+          totalSupply
           symbol
 */
-type MetaData = record { fee : Fee; decimals : nat8; name : text; total_supply : nat; symbol : text; };
+type MetaData = record { fee : Fee; decimals : nat8; name : text; totalSupply : nat; symbol : text; };
 ```
 ## TxRecord
 ```rust
@@ -82,11 +82,11 @@ type TokenHolder = variant { None; Account : text; Principal : principal };
      The information of token
 */
 type TokenInfo = record {
-  allowance_size : nat;
-  fee_to : TokenHolder;
+  allowanceSize : nat;
+  feeTo : TokenHolder;
   owner : principal;
   cycles : nat64;
-  tx_count : nat;
+  txCount : nat;
   holders : nat;
   storages : vec principal;
 };
