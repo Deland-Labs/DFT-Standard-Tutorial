@@ -1,0 +1,41 @@
+---
+sidebar_position: 3
+---
+
+# Auto-scaling storage
+
+## Background
+
+At present, the canister storage has been increased to 8G, but the memory storage is still 4G.
+
+There is no storage API similar to the file system currently, which means that only 4G storage can be used.
+
+## Problem to be solved
+
+When we want to support saving more token transaction history, 4G storage will become a limitation.
+
+## What's auto-scaling storage
+
+Auto-scaling storage will solve the problems mentioned above.
+
+## How does auto-scaling storage work?
+
+![flow chart](/img/AutoScalingStorage.svg)
+
+## Has auto-scaling storage been implemented?
+
+Yes, it has been implemented in DFT Standard
+
+## Fallback strategy
+
+The transaction history will be stored in the token when a token created by the DFT standard has not enough cycles to create auto-scaling storage.
+
+When the token has enough cycles to create it, the transaction history store in the token will move to the auto-scaling storage.
+
+## Use Case
+
+### Production
+Auto-scaling storage allows tokens created by the DFT standard to have unlimited transaction history storage
+
+### Test
+When issuing a token for testing, auto-scaling storage will not be created until more than 2000 txs. 2000txs can meet the needs of most test scenarios, it is unnecessary to consume cycles to create additional storage

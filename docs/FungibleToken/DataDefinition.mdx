@@ -1,0 +1,109 @@
+---
+sidebar_position: 2
+---
+
+# Data Definition
+
+## CallData
+```rust
+/* 
+  CallData use for approveAndCall & transferAndCall
+  CallData includes the method name of the receiver container 
+  and the encoded call parameter data
+*/
+type CallData = record { method : text; args : vec nat8 };
+```
+
+## Fee
+```rust
+/*
+  Fee include minimum and rate
+  How to calc fee? fee = math.Max( transferValue * rate , minimum) 
+*/
+type Fee = record { rate : nat; minimum : nat };
+```
+## MetaData
+```rust
+/*
+  MetaData of token
+  includes: 
+          fee setting
+          decimals
+          name
+          total_supply
+          symbol
+*/
+type MetaData = record { fee : Fee; decimals : nat8; name : text; total_supply : nat; symbol : text; };
+```
+## TxRecord
+```rust
+/*
+  Transaction Record of token
+  includes: 
+          Approve transaction record
+          Transfer transaction record
+*/
+type TxRecord = variant {
+  Approve : record { nat; principal; TokenHolder; TokenHolder; nat; nat; nat64; };
+  Transfer : record { nat; principal; TokenHolder; TokenHolder; nat; nat; nat64; };
+};
+```
+## TxRecordsResult
+```rust
+/*
+  TxRecordsResult
+      Ok transaction record list
+      Error error message
+*/
+type TxRecordsResult = variant { Ok : vec TxRecord; Err : text };
+```
+## TxRecordResult
+```rust
+/*
+  TxRecordResult
+      Ok TxRecord
+      Error error message
+      Forward query transaction record when the tx store in the auto-scaling storage
+*/
+type TransactionResult = variant { Ok : Transaction; Err : text; Forward : principal; };
+```
+## TokenHolder
+```rust
+/*
+  TokenHolder
+     Both support Account ID(ledger account ID) and Principal ID
+*/
+type TokenHolder = variant { None; Account : text; Principal : principal };
+```
+## TokenInfo
+```rust
+/*
+  TokenInfo
+     The information of token
+*/
+type TokenInfo = record {
+  allowance_size : nat;
+  fee_to : TokenHolder;
+  owner : principal;
+  cycles : nat64;
+  tx_count : nat;
+  holders : nat;
+  storages : vec principal;
+};
+```
+## TransactionResponse
+```rust
+/*
+  TransactionResponse
+    Response type of method approve/burn/transfer/transferFrom 
+*/
+type TransactionResponse = record { txid : text; error : opt vec text };
+```
+## TransactionResult
+```rust
+/*
+  TransactionResult
+    Result type of method approve/burn/transfer/transferFrom 
+*/
+type TransactionResult = variant { Ok : TransactionResponse; Err : text };
+```

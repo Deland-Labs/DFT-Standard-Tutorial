@@ -1,0 +1,168 @@
+---
+sidebar_position: 3
+---
+
+# API
+## Basic Standard API
+### name
+```rust
+  // Return token's name
+  name : () -> (text) query;
+
+```
+### symbol
+```rust
+  // Return token's symbol
+  symbol : () -> (text) query;
+```
+### decimals
+```rust
+  // Return token's decimals
+  decimals : () -> (nat8) query;
+```
+### totalSupply
+```rust
+  // Return token's totalSupply
+  totalSupply : () -> (nat) query;
+```
+### fee
+```rust
+  // Return token's fee setting
+  fee : () -> (Fee) query;
+```
+### setFee
+```rust
+  // Set token's fee setting
+  setFee : (Fee) -> (bool);
+```
+### setFeeTo
+```rust
+  // Any fee will send to the feeHolder
+  setFeeTo : (feeHolder: text) -> (bool);
+```
+### meta
+```rust
+  // Return all of the meta data of a token.
+  meta: () -> (MetaData) query;
+```
+### setExtend
+```rust
+  // Return all of the extend data of a token.
+  // Extend data show more information about the token
+  // supported keys:
+  //   OFFICIAL_SITE, OFFICIAL_EMAIL, DESCRIPTION, WHITE_PAPER
+  //   MEDIUM, BLOG, REDDIT, SLACK, FACEBOOK, TWITTER,
+  //   GITHUB, TELEGRAM, WECHAT, LINKEDIN, DISCORD,
+  //   DSCVR, OPENCHAT, DISTRIKT, WEACT
+
+  extend: () -> (vec KeyValuePair) query;
+
+  // Set extend data of a token.
+  setExtend : (vec KeyValuePair) -> (bool);
+```
+### logo
+```rust
+  // Return token logo data (image data)
+  logo : () -> (vec nat8) query;
+```
+### setLogo
+```rust
+  // Set the logo of a token
+  setLogo : (logo : vec nat8) -> (bool);
+```
+### balanceOf
+```rust
+  // Returns the account balance of another account with address owner.
+  balanceOf: (holder: text) -> (nat) query;
+```
+### owner
+```rust
+  // Return token's owner
+  owner : () -> (principal);
+```
+### setOwner
+```rust
+  // Set the token owner
+  //    owner can invoke [setFee, setFeeTo, setLogo, setExtend, setOwner]
+  setOwner : (owner: principal) -> (bool);
+```
+### tokenInfo
+```rust
+  // Return token's info:
+  // owner: OWNER,
+  //          holders: total holder count of the token,
+  //          allowance_size: total allowance count of the token,
+  //          fee_to: feeHolder,
+  //          tx_count: total transaction count of the token,
+  //          cycles: cycles balance of the token
+  //          storages : auto-scaling storage canister ids
+  tokenInfo : () -> (TokenInfo) query;
+```
+### approve
+```rust
+  // Returns the amount which spender is still allowed to withdraw from owner.
+  allowance:(owner: text, spender: text)->(nat) query;
+
+  // Allows `spender` to withdraw from your account multiple times, up to the `value` amount.
+  // If this function is called again it overwrites the current allowance with value.
+  // If `calldata` is not null and `spender` is canister, approve means approveAndCall.
+  approve: (fromSubAccount: opt vec nat8, spender: text, value: nat, calldata: opt CallData) -> (TransactionResult);
+```
+### allowancesOf
+```rust
+  //Get all allownances of the holder
+  allowancesOf : (holder: text) -> (vec record { TokenHolder; nat }) query;
+```
+### transferFrom
+```rust
+  // Transfers value amount of tokens from `address from` to [address to].
+  // The transferFrom method is used for a withdraw workflow, allowing canister
+  // to transfer tokens on your behalf.
+  // If the receiver's (`to`) notification hook function exists,  will be called.
+  transferFrom: (spenderSubAccount: opt vec nat8, from: text, to: text,value: nat) ->(TransactionResult);
+```
+### transfer
+```rust
+  // Transfer from account:
+  //      1. `fromSubAccount` is not null : Use the accountId generated based on the caller's Principal and the provided `fromSubAccount`
+  //      2. `fromSubAccount` is  null    : Use caller's Principal
+  // Then transfer `value` from the holder to `to` , return TransferResponse
+  // `to` can be an AccountId , a Principal,or a canister id (If the container has a notification hook function, a notification will be triggered).
+  // If `calldata` is not null and `to` is canister, transfer means transferAndCall.
+  // Transfer 0 value ​​will be reject.
+  transfer: (fromSubAccount:opt vec nat8, to: text, value: nat, calldata: opt CallData) -> (TransactionResult);
+```
+### lastTransactions
+```rust
+  // Get last transcation of the DFT, max size is 200
+  lastTransactions : (size: nat64) -> (TxRecordsResult) query;
+```
+### transactionById
+```rust
+  // Get transcation information by id
+  // If not exist in DFT, return the storage canister id of the transaction located
+  // Call transactionById to the storage canister id again ,will return the transaction information.
+  transactionById : (transactionId: text) -> (TxRecordResult) query;
+```
+### transactionByIndex
+```rust
+  // Get transcation information by tx index
+  // If not exist in DFT, return the storage canister id of the transaction located
+  // Call transactionById to the storage canister id again ,will return the transaction information.
+  transactionByIndex : (nat) -> (TxRecordResult) query;
+```
+
+## Burnable Extension API
+### burn
+```rust 
+  burn : (opt vec nat8, nat) -> (TransactionResult);
+```
+### burnFrom
+```rust 
+  burnFrom : (opt vec nat8, text, nat) -> (TransactionResult);
+```
+## Mintable Extension API
+### mint
+```rust 
+  mint : (text, nat) -> (TransactionResult);
+```

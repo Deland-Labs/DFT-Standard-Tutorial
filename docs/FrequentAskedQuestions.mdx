@@ -1,0 +1,43 @@
+---
+sidebar_position: 4
+---
+
+# Frequent Asked Questions
+
+## There are implementations of motoko and rust, which is the best choice?
+It is strongly recommended to use Rust implementation. Motoko has some limitations, you can get details [here](https://github.com/Deland-Labs/dfinity-fungible-token-standard/issues/1)
+
+## How create my own token?
+
+### Create by source code
+#### Create Basic Standard Token
+```shell
+git clone https://github.com/Deland-Labs/dfinity-fungible-token-standard.git
+cd dfinity-fungible-token-standard/rust
+dfx create canister --all
+dfx build
+dfx canister --no-wallet  install dft_basic \
+	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { lowest = 1 : nat; rate = 0 : nat } , null)'
+```
+#### Create Burnable Token
+```shell
+git clone https://github.com/Deland-Labs/dfinity-fungible-token-standard.git
+cd dfinity-fungible-token-standard/rust
+dfx create canister --all
+dfx build
+dfx canister --no-wallet  install dft_burnable \
+	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { lowest = 1 : nat; rate = 0 : nat } , null)'
+```
+
+#### Create Mintable Token
+```shell
+git clone https://github.com/Deland-Labs/dfinity-fungible-token-standard.git
+cd dfinity-fungible-token-standard/rust
+dfx create canister --all
+dfx build
+dfx canister --no-wallet  install dft_mintable \
+	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { lowest = 1 : nat; rate = 0 : nat } , null)'
+```
+### Create by issuance tool
+
+**TODO**

@@ -1,0 +1,50 @@
+---
+sidebar_position: 1
+---
+
+# Standards
+
+## Basic Standard
+```rust
+service : {
+  name : () -> (text) query;
+  symbol : () -> (text) query;
+  decimals : () -> (nat8) query;
+  totalSupply : () -> (nat) query;
+  fee : () -> (Fee) query;
+  setFee : (Fee) -> (bool);
+  setFeeTo : (feeHolder: text) -> (bool);
+  meta: () -> (MetaData) query;
+  extend: () -> (vec KeyValuePair) query;
+  setExtend : (vec KeyValuePair) -> (bool);
+  logo : () -> (vec nat8) query;
+  setLogo : (logo : vec nat8) -> (bool);
+  balanceOf: (holder: text) -> (nat) query;
+  owner : () -> (principal);
+  setOwner : (owner: principal) -> (bool);
+  tokenInfo : () -> (TokenInfo) query;
+  allowance:(owner: text, spender: text)->(nat) query;
+  approve: (fromSubAccount: opt vec nat8, spender: text, value: nat, calldata: opt CallData) -> (TransactionResult);
+  allowancesOf : (holder: text) -> (vec record { TokenHolder; nat }) query;
+  transferFrom: (spenderSubAccount: opt vec nat8, from: text, to: text,value: nat) ->(TransactionResult);
+  transfer: (fromSubAccount:opt vec nat8, to: text, value: nat, calldata: opt CallData) -> (TransactionResult);
+  lastTransactions : (size: nat64) -> (TxRecordsResult) query;
+  transactionById : (transactionId: text) -> (TxRecordResult) query;
+  transactionByIndex : (nat) -> (TxRecordResult) query;
+}
+```
+## Standard Extension
+### Burnable Extension
+```rust 
+service : {
+  burn : (opt vec nat8, nat) -> (TransactionResult);
+  burnFrom : (opt vec nat8, text, nat) -> (TransactionResult);
+}
+```
+
+### Mintable Extension
+```rust 
+service : {
+  mint : (text, nat) -> (TransactionResult);
+}
+```
