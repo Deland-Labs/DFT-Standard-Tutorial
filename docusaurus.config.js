@@ -25,7 +25,7 @@ const config = {
           routeBasePath: "/",
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/Deland-Labs/DFT-Standard-Tutorial/',
+          editUrl: 'https://github.com/Deland-Labs/DFT-Standard-Tutorial/blob/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
