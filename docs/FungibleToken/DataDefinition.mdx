@@ -65,7 +65,7 @@ type TxRecordsResult = variant { Ok : vec TxRecord; Err : text };
       Error error message
       Forward query transaction record when the tx store in the auto-scaling storage
 */
-type TransactionResult = variant { Ok : Transaction; Err : text; Forward : principal; };
+type TxRecordResult = variant { Ok : Transaction; Err : text; Forward : principal; };
 ```
 ## TokenHolder
 ```rust
