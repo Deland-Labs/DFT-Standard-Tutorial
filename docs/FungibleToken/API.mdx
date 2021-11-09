@@ -45,20 +45,27 @@ sidebar_position: 3
   // Return all of the meta data of a token.
   meta: () -> (MetaData) query;
 ```
-### setExtend
+### desc
 ```rust
-  // Return all of the extend data of a token.
-  // Extend data show more information about the token
+  // Return all of the description information of a token.
   // supported keys:
   //   OFFICIAL_SITE, OFFICIAL_EMAIL, DESCRIPTION, WHITE_PAPER
   //   MEDIUM, BLOG, REDDIT, SLACK, FACEBOOK, TWITTER,
   //   GITHUB, TELEGRAM, WECHAT, LINKEDIN, DISCORD,
   //   DSCVR, OPENCHAT, DISTRIKT, WEACT
 
-  extend: () -> (vec KeyValuePair) query;
+  desc: () -> (vec record { text; text }) query;
+```
 
-  // Set extend data of a token.
-  setExtend : (vec KeyValuePair) -> (bool);
+### setDesc
+```rust
+  // Set description information of a token.
+  // supported keys:
+  //   OFFICIAL_SITE, OFFICIAL_EMAIL, DESCRIPTION, WHITE_PAPER
+  //   MEDIUM, BLOG, REDDIT, SLACK, FACEBOOK, TWITTER,
+  //   GITHUB, TELEGRAM, WECHAT, LINKEDIN, DISCORD,
+  //   DSCVR, OPENCHAT, DISTRIKT, WEACT
+  setDesc : (vec record { text; text }) -> (bool);
 ```
 ### logo
 ```rust
@@ -83,7 +90,7 @@ sidebar_position: 3
 ### setOwner
 ```rust
   // Set the token owner
-  //    owner can invoke [setFee, setFeeTo, setLogo, setExtend, setOwner]
+  //    owner can invoke [setFee, setFeeTo, setLogo, setDesc, setOwner]
   setOwner : (owner: principal) -> (bool);
 ```
 ### tokenInfo

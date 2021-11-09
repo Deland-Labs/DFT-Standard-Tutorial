@@ -15,8 +15,8 @@ service : {
   setFee : (Fee) -> (bool);
   setFeeTo : (feeHolder: text) -> (bool);
   meta: () -> (MetaData) query;
-  extend: () -> (vec KeyValuePair) query;
-  setExtend : (vec KeyValuePair) -> (bool);
+  desc: () -> (vec record { text; text }) query;
+  setDesc : (vec record { text; text }) -> (bool);
   logo : () -> (vec nat8) query;
   setLogo : (logo : vec nat8) -> (bool);
   balanceOf: (holder: text) -> (nat) query;

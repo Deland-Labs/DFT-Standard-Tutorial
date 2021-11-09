@@ -1,16 +1,16 @@
 <mxfile host="65bd71144e">
     <diagram name="Page-1" id="c7558073-3199-34d8-9f00-42111426c3f3">
-        <mxGraphModel dx="891" dy="621" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="826" pageHeight="1169" background="none" math="0" shadow="0">
+        <mxGraphModel dx="891" dy="626" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="826" pageHeight="1169" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;Update call&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;when &amp;gt;= 2000 txs inside&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=none;" parent="1" vertex="1">
+                <mxCell id="2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;Update call&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;when &amp;gt;= 2000 txs inside&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=0;strokeWidth=3;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="160" y="39" width="150" height="45" as="geometry"/>
                 </mxCell>
                 <mxCell id="130" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" parent="1" source="8" target="129" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;Batch move&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;1000 txs to&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;auto-scaling&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;storage&lt;/p&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=none;" parent="1" vertex="1">
+                <mxCell id="8" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;Batch move&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;1000 txs to&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;auto-scaling&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;storage&lt;/p&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=0;strokeWidth=3;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="365" y="311.5" width="110" height="90" as="geometry"/>
                 </mxCell>
                 <mxCell id="121" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="12" edge="1">
@@ -22,7 +22,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="12" value="Create Auto-scaling storage" style="whiteSpace=wrap;align=center;verticalAlign=middle;fontStyle=1;strokeWidth=3;fillColor=none;" parent="1" vertex="1">
+                <mxCell id="12" value="Create Auto-scaling storage" style="whiteSpace=wrap;align=center;verticalAlign=middle;fontStyle=0;strokeWidth=3;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="600" y="181.5" width="140" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="36" value="" style="edgeStyle=none;noEdgeStyle=1;strokeWidth=2;fillColor=none;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;startArrow=none;" parent="1" source="106" target="97" edge="1">
@@ -106,10 +106,10 @@
                 <mxCell id="109" value="Can auto-scaling &lt;br&gt;storagebe able to store &lt;br&gt;the next 1000 txs?" style="shape=rhombus;html=1;dashed=0;whitespace=wrap;perimeter=rhombusPerimeter;strokeWidth=3;" parent="1" vertex="1">
                     <mxGeometry x="338.75" y="141.5" width="162.5" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="126" value="&lt;span style=&quot;font-weight: 700&quot;&gt;Create Token&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;padding: 0px ; margin: 0px ; font-weight: 700&quot;&gt;&lt;span style=&quot;font-weight: 700&quot;&gt;Canister&lt;/span&gt;" style="html=1;dashed=0;whitespace=wrap;shape=mxgraph.dfd.start;strokeWidth=3;" parent="1" vertex="1">
+                <mxCell id="126" value="&lt;span style=&quot;&quot;&gt;Create Token&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;padding: 0px; margin: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;Canister&lt;/span&gt;" style="html=1;dashed=0;whitespace=wrap;shape=mxgraph.dfd.start;strokeWidth=3;fontStyle=0" parent="1" vertex="1">
                     <mxGeometry x="10" y="41.5" width="90" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="129" value="Finish" style="shape=ellipse;html=1;dashed=0;whitespace=wrap;aspect=fixed;strokeWidth=5;perimeter=ellipsePerimeter;" parent="1" vertex="1">
+                <mxCell id="129" value="Finish" style="shape=ellipse;html=1;dashed=0;whitespace=wrap;aspect=fixed;strokeWidth=5;perimeter=ellipsePerimeter;fontStyle=0" parent="1" vertex="1">
                     <mxGeometry x="390" y="431.5" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="136" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="132" target="129" edge="1">
@@ -117,7 +117,7 @@
                         <mxPoint x="645" y="500.25" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="132" value="&lt;p style=&quot;font-family: &amp;#34;helvetica&amp;#34; ; margin: 4px 0px 0px&quot;&gt;&lt;/p&gt;&lt;font face=&quot;helvetica&quot;&gt;Continue to store more &lt;br&gt;than 2000 txs inside the &lt;br&gt;token canister for &lt;br&gt;auto-scaling fallback&lt;/font&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=none;" parent="1" vertex="1">
+                <mxCell id="132" value="&lt;p style=&quot;font-family: &amp;quot;helvetica&amp;quot; ; margin: 4px 0px 0px&quot;&gt;&lt;/p&gt;&lt;font face=&quot;helvetica&quot;&gt;Continue to store more &lt;br&gt;than 2000 txs inside the &lt;br&gt;token canister for &lt;br&gt;auto-scaling fallback&lt;/font&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=0;strokeWidth=3;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="570" y="334" width="150" height="77.5" as="geometry"/>
                 </mxCell>
             </root>

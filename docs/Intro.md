@@ -115,7 +115,7 @@ The design of Token Standard will consider the difference between Dfinity and Et
 - Question: If there is a need to destroy Token, how to deal with it?
 - Consideration: Whether to implement the burn interface should be considered in the Token standard
 
-- Solution: The burn interface does not need to be put into the standard, it can be designed in the extended interface
+- Solution: The burn interface does not need to be put into the standard, it can be designed in the extension interface
 
 7. approve/transferFrom (Approve is a pairing function for TransferFrom)
 
