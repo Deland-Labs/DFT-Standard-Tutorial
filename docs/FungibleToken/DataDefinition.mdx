@@ -3,6 +3,15 @@ sidebar_position: 2
 ---
 
 # Data Definition
+## CallData
+```rust
+/* 
+  Error
+  - code : Error code
+  - msg : Error message
+*/
+type Error = record { code : nat32; message : text };
+```
 
 ## CallData
 ```rust
@@ -53,19 +62,23 @@ type TxRecord = variant {
 /*
   TxRecordsResult
       Ok transaction record list
-      Error error message
+      Error
+        - code : Error code
+        - msg : Error message
 */
-type TxRecordsResult = variant { Ok : vec TxRecord; Err : text };
+type TxRecordsResult = variant { Ok : vec TxRecord; Err : Error };
 ```
 ## TxRecordResult
 ```rust
 /*
   TxRecordResult
       Ok TxRecord
-      Error error message
+      Error 
+        - code : Error code
+        - msg : Error message
       Forward query transaction record when the tx store in the auto-scaling storage
 */
-type TxRecordResult = variant { Ok : Transaction; Err : text; Forward : principal; };
+type TxRecordResult = variant { Ok : Transaction; Err : Error; Forward : principal; };
 ```
 ## TokenHolder
 ```rust
@@ -97,13 +110,16 @@ type TokenInfo = record {
   TransactionResponse
     Response type of method approve/burn/transfer/transferFrom 
 */
-type TransactionResponse = record { txid : text; error : opt vec text };
+type TransactionResponse = record { txid : text; error : opt vec Error };
 ```
 ## TransactionResult
 ```rust
 /*
   TransactionResult
-    Result type of method approve/burn/transfer/transferFrom 
+    Result type of method approve/burn/transfer/transferFrom
+    Error :
+        - code : Error code
+        - msg : Error message
 */
-type TransactionResult = variant { Ok : TransactionResponse; Err : text };
+type TransactionResult = variant { Ok : TransactionResponse; Err : Error };
 ```

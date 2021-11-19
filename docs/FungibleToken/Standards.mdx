@@ -7,29 +7,30 @@ sidebar_position: 1
 ## Basic Standard
 ```rust
 service : {
-  name : () -> (text) query;
   symbol : () -> (text) query;
+  name : () -> (text) query;
   decimals : () -> (nat8) query;
   totalSupply : () -> (nat) query;
-  fee : () -> (Fee) query;
-  setFee : (Fee) -> (bool);
-  setFeeTo : (feeHolder: text) -> (bool);
-  meta: () -> (MetaData) query;
-  desc: () -> (vec record { text; text }) query;
-  setDesc : (vec record { text; text }) -> (bool);
   logo : () -> (vec nat8) query;
-  setLogo : (logo : vec nat8) -> (bool);
-  balanceOf: (holder: text) -> (nat) query;
-  owner : () -> (principal);
-  setOwner : (owner: principal) -> (bool);
+  fee : () -> (Fee) query;
+  meta : () -> (Metadata) query;
+  allowance : (text, text) -> (nat) query;
+  allowancesOf : (text) -> (vec record { TokenHolder; nat }) query;
+  approve : (opt vec nat8, text, nat, opt CallData) -> (TransactionResult);
+  balanceOf : (text) -> (nat) query;
+  desc : () -> (vec record { text; text }) query;
+  owner : () -> (principal) query;
+  setDesc : (vec record { text; text }) -> (CommonResult);
+  setFee : (Fee) -> (CommonResult);
+  setFeeTo : (text) -> (CommonResult);
+  setLogo : (vec nat8) -> (CommonResult);
+  setOwner : (principal) -> (CommonResult);
   tokenInfo : () -> (TokenInfo) query;
-  allowance:(owner: text, spender: text)->(nat) query;
-  approve: (fromSubAccount: opt vec nat8, spender: text, value: nat, calldata: opt CallData) -> (TransactionResult);
-  allowancesOf : (holder: text) -> (vec record { TokenHolder; nat }) query;
-  transferFrom: (spenderSubAccount: opt vec nat8, from: text, to: text,value: nat) ->(TransactionResult);
-  transfer: (fromSubAccount:opt vec nat8, to: text, value: nat, calldata: opt CallData) -> (TransactionResult);
-  lastTransactions : (size: nat64) -> (TxRecordsResult) query;
-  transactionById : (transactionId: text) -> (TxRecordResult) query;
+  transfer : (opt vec nat8, text, nat, opt CallData) -> (TransactionResult);
+  transferFrom : (opt vec nat8, text, text, nat) -> (TransactionResult);
+
+  lastTransactions : (nat64) -> (TxRecordsResult) query;
+  transactionById : (text) -> (TxRecordResult) query;
   transactionByIndex : (nat) -> (TxRecordResult) query;
 }
 ```
