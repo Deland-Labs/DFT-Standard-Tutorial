@@ -17,7 +17,7 @@ cd dfinity-fungible-token-standard/rust
 dfx create canister --all
 dfx build
 dfx canister --no-wallet  install dft_basic \
-	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { lowest = 1 : nat; rate = 0 : nat } , null)'
+	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { minimum = 1 : nat; rate = 0 : nat } , null)'
 ```
 #### Create Burnable Token
 ```shell
@@ -26,7 +26,7 @@ cd dfinity-fungible-token-standard/rust
 dfx create canister --all
 dfx build
 dfx canister --no-wallet  install dft_burnable \
-	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { lowest = 1 : nat; rate = 0 : nat } , null)'
+	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { minimum = 1 : nat; rate = 0 : nat } , null)'
 ```
 
 #### Create Mintable Token
@@ -36,7 +36,7 @@ cd dfinity-fungible-token-standard/rust
 dfx create canister --all
 dfx build
 dfx canister --no-wallet  install dft_mintable \
-	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { lowest = 1 : nat; rate = 0 : nat } , null)'
+	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { minimum = 1 : nat; rate = 0 : nat } , null)'
 ```
 ### Create by issuance tool
 
