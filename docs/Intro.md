@@ -136,16 +136,27 @@ The design of Token Standard will consider the difference between Dfinity and Et
 - Consideration:
   - Notify can meet the basic notification needs. Although it cannot support better flexibility, it is sufficient to meet the transfer scenario
   - TransferAndCall provides better flexibility, but it depends on the transfer caller to fully understand the method and parameters corresponding to the call, which is not needed for most transfer scenarios
+  - For security reasons, For security reasons, do not call the canister of the location inside the canister,[why?Inter-canister calls](https://www.joachim-breitner.de/blog/788-How_to_audit_an_Internet_Computer_canister)
+  
 - Solution: 
-  - Both are supported, integrated in the transfer function
-  - Token standard should execute Notify first, and then execute call
+  - Neither is supported
+
 9. ApproveAndCall VS TransferAndCall
 
 - Question: We compare transferAndCall and TransferAndCall. ApproveAndCall and transferAndCall are two sets of non-atomic operations, there is no difference essentially. Which one should be retained?
 
 - Consideration: In some scenarios, when multiple Tokens need to be transferred at the same time, TransferAndCall can not meet such needs. After approval, execute transferFrom in the final call to pay multiple tokens at once
+- For security reasons like Q8
 
-- Solution: Both support approveAndCall and transferAndCall to meet the flexible needs of more scenarios.
+- Solution: call is not supported
+
+10. Nonce
+
+- Question: What Is Nonce In Ethereum? every transaction has a nonce. The nonce is the number of transactions sent from a given address. Each time you send a transaction, the nonce increases by 1. There are rules about what transactions are valid, and the nonce is used to enforce some of these rules. Does Dfinity's token standard need to incorporate a nonce mechanism?
+
+- Consideration:If the nonce mechanism is supported, it can prevent users from repeatedly submitting transactions
+
+- Solution: Support nonce mechanism
 
 ### What other functions does the Dfinity Fungible Token standard need to implement?
  
@@ -182,3 +193,9 @@ Based on the above problems and requirements,  the following draft standards are
 - [10] [sudograph](https://github.com/sudograph/sudograph)
 
 - [11] [Dfinity Self Describing Standard](https://github.com/Deland-Labs/dfinity-self-describing-standard)
+
+- [12] [How to audit an Internet Computer canister](https://www.joachim-breitner.de/blog/788-How_to_audit_an_Internet_Computer_canister)
+
+- [13] [infinity-swap: IS20](https://github.com/infinity-swap/IS20)
+
+- [14] [ICLighthouse: DRC20](https://github.com/iclighthouse/DRC_standards)

@@ -13,23 +13,13 @@ sidebar_position: 2
 type Error = record { code : nat32; message : text };
 ```
 
-## CallData
-```rust
-/* 
-  CallData use for approveAndCall & transferAndCall
-  CallData includes the method name of the receiver container 
-  and the encoded call parameter data
-*/
-type CallData = record { method : text; args : vec nat8 };
-```
-
 ## Fee
 ```rust
 /*
   Fee include minimum and rate
   How to calc fee? fee = math.Max( transferValue * rate , minimum) 
 */
-type Fee = record { rate : nat; minimum : nat };
+type Fee = record { rate : nat; rate_decimals : nat8; minimum : nat };
 ```
 ## MetaData
 ```rust
@@ -53,9 +43,20 @@ type MetaData = record { fee : Fee; decimals : nat8; name : text; totalSupply : 
           Transfer transaction record
 */
 type TxRecord = variant {
-  Approve : record { nat; principal; TokenHolder; TokenHolder; nat; nat; nat64; };
-  Transfer : record { nat; principal; TokenHolder; TokenHolder; nat; nat; nat64; };
+  Approve : record { nat; TokenHolder; TokenHolder; TokenHolder; nat; nat; nat64; nat64; };
+  Transfer : record { nat; TokenHolder; TokenHolder; TokenHolder; nat; nat; nat64; nat64; };
 };
+```
+## CommonResult
+```rust
+/*
+  CommonResult
+      Ok bool
+      Error
+        - code : Error code
+        - msg : Error message
+*/
+type CommonResult = variant { Ok : bool; Err : Error };
 ```
 ## TxRecordsResult
 ```rust

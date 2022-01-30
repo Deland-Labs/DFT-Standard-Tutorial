@@ -82,6 +82,11 @@ sidebar_position: 3
   // Returns the account balance of another account with address owner.
   balanceOf: (holder: text) -> (nat) query;
 ```
+### nonceOf
+```rust
+  // Returns the current nonce of user's principal.
+  nonceOf : (principal) -> (nat64) query;
+```
 ### owner
 ```rust
   // Return token's owner
@@ -114,8 +119,8 @@ sidebar_position: 3
 ```rust
   // Allows `spender` to withdraw from your account multiple times, up to the `value` amount.
   // If this function is called again it overwrites the current allowance with value.
-  // If `calldata` is not null and `spender` is canister, approve means approveAndCall.
-  approve: (fromSubAccount: opt vec nat8, spender: text, value: nat, calldata: opt CallData) -> (TransactionResult);
+  // If `nonce` is null , it will automatically give a valid nonce.
+  approve: (fromSubAccount: opt vec nat8, spender: text, value: nat, nonce: opt nat64) -> (TransactionResult);
 ```
 ### allowancesOf
 ```rust
@@ -128,7 +133,8 @@ sidebar_position: 3
   // The transferFrom method is used for a withdraw workflow, allowing canister
   // to transfer tokens on your behalf.
   // If the receiver's (`to`) notification hook function exists,  will be called.
-  transferFrom: (spenderSubAccount: opt vec nat8, from: text, to: text,value: nat) ->(TransactionResult);
+  // If `nonce` is null , it will automatically give a valid nonce.
+  transferFrom: (spenderSubAccount: opt vec nat8, from: text, to: text, value: nat, nonce: opt nat64) ->(TransactionResult);
 ```
 ### transfer
 ```rust
@@ -137,9 +143,9 @@ sidebar_position: 3
   //      2. `fromSubAccount` is  null    : Use caller's Principal
   // Then transfer `value` from the holder to `to` , return TransferResponse
   // `to` can be an AccountId , a Principal,or a canister id (If the container has a notification hook function, a notification will be triggered).
-  // If `calldata` is not null and `to` is canister, transfer means transferAndCall.
+  // If `nonce` is null , it will automatically give a valid nonce.
   // Transfer 0 value ​​will be reject.
-  transfer: (fromSubAccount:opt vec nat8, to: text, value: nat, calldata: opt CallData) -> (TransactionResult);
+  transfer: (fromSubAccount:opt vec nat8, to: text, value: nat, nonce: opt nat64) -> (TransactionResult);
 ```
 ### lastTransactions
 ```rust
