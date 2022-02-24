@@ -34,7 +34,7 @@ ERC20 was created in the early days of Ethereum. During the development of the E
     - adds transferAndCall which combines transfer function and call function, and solve the problems solved by ERC223
 
 3. ERC777
-    - use send function to repalce transfer function
+    - use send function to replace transfer function
     - use the hook function to controls whether to accept transfer
     - use the operator authorization function to replace the approve function as a proxy transfer solution
 
@@ -143,7 +143,7 @@ The design of Token Standard will consider the difference between Dfinity and Et
 
 9. ApproveAndCall VS TransferAndCall
 
-- Question: We compare transferAndCall and TransferAndCall. ApproveAndCall and transferAndCall are two sets of non-atomic operations, there is no difference essentially. Which one should be retained?
+- Question: We compare ApproveAndCall and TransferAndCall. ApproveAndCall and TransferAndCall are two sets of non-atomic operations, there is no difference essentially. Which one should be retained?
 
 - Consideration: In some scenarios, when multiple Tokens need to be transferred at the same time, TransferAndCall can not meet such needs. After approval, execute transferFrom in the final call to pay multiple tokens at once
 - For security reasons like Q8
