@@ -111,7 +111,7 @@ type TokenInfo = record {
   TransactionResponse
     Response type of method approve/burn/transfer/transferFrom 
 */
-type TransactionResponse = record { txid : text; error : opt vec Error };
+type TransactionResponse = record { txid : text; error : opt Error };
 ```
 ## TransactionResult
 ```rust
