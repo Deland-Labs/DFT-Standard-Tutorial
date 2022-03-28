@@ -33,12 +33,12 @@ sidebar_position: 3
 ### setFee
 ```rust
   // Set token's fee setting
-  setFee : (Fee) -> (bool);
+  setFee : (Fee, opt nat64) -> (BooleanResult);
 ```
 ### setFeeTo
 ```rust
   // Any fee will send to the feeHolder
-  setFeeTo : (feeHolder: text) -> (bool);
+  setFeeTo : (feeHolder: text, opt nat64) -> (BooleanResult);
 ```
 ### meta
 ```rust
@@ -65,7 +65,7 @@ sidebar_position: 3
   //   MEDIUM, BLOG, REDDIT, SLACK, FACEBOOK, TWITTER,
   //   GITHUB, TELEGRAM, WECHAT, LINKEDIN, DISCORD,
   //   DSCVR, OPENCHAT, DISTRIKT, WEACT
-  setDesc : (vec record { text; text }) -> (bool);
+  setDesc : (vec record { text; text }, opt nat64) -> (BooleanResult);
 ```
 ### logo
 ```rust
@@ -75,7 +75,7 @@ sidebar_position: 3
 ### setLogo
 ```rust
   // Set the logo of a token
-  setLogo : (logo : vec nat8) -> (bool);
+  setLogo : (logo : vec nat8, opt nat64) -> (BooleanResult);
 ```
 ### balanceOf
 ```rust
@@ -90,13 +90,13 @@ sidebar_position: 3
 ### owner
 ```rust
   // Return token's owner
-  owner : () -> (principal);
+  owner : () -> (principal) query;
 ```
 ### setOwner
 ```rust
   // Set the token owner
   //    owner can invoke [setFee, setFeeTo, setLogo, setDesc, setOwner]
-  setOwner : (owner: principal) -> (bool);
+  setOwner : (owner: principal, opt nat64) -> (BooleanResult);
 ```
 ### tokenInfo
 ```rust
@@ -150,7 +150,7 @@ sidebar_position: 3
 ### lastTransactions
 ```rust
   // Get last transcation of the token, max size is 200
-  lastTransactions : (size: nat64) -> (TxRecordsResult) query;
+  lastTransactions : (size: nat64) -> (TxRecordListResult) query;
 ```
 ### transactionById
 ```rust
@@ -170,14 +170,14 @@ sidebar_position: 3
 ## Burnable Extension API
 ### burn
 ```rust 
-  burn : (opt vec nat8, nat) -> (TransactionResult);
+  burn : (opt vec nat8, nat, opt nat64) -> (TransactionResult);
 ```
 ### burnFrom
 ```rust 
-  burnFrom : (opt vec nat8, text, nat) -> (TransactionResult);
+  burnFrom : (opt vec nat8, text, nat, opt nat64) -> (TransactionResult);
 ```
 ## Mintable Extension API
 ### mint
 ```rust 
-  mint : (text, nat) -> (TransactionResult);
+  mint : (text, nat, opt nat64) -> (TransactionResult);
 ```
