@@ -3,14 +3,14 @@ sidebar_position: 2
 ---
 
 # Data Definition
-## ActorError
+## ErrorInfo
 ```rust
 /* 
-  ActorError
+  ErrorInfo
   - code : Error code
   - msg : Error message
 */
-type ActorError = record { code : nat32; message : text };
+type ErrorInfo = record { code : nat32; message : text };
 ```
 
 ## BooleanResult
@@ -18,9 +18,9 @@ type ActorError = record { code : nat32; message : text };
 /* 
   BooleanResult:
   - Ok : bool
-  - Err : ActorError
+  - Err : ErrorInfo
 */
-type BooleanResult = variant { Ok : bool; Err : ActorError };
+type BooleanResult = variant { Ok : bool; Err : ErrorInfo };
 ```
 
 ## Fee
@@ -74,7 +74,7 @@ type TokenInfo = record {
   TransactionResponse
     Response type of method approve/burn/transfer/transferFrom 
 */
-type TransactionResponse = record { txId : text; error : opt ActorError };
+type TransactionResponse = record { txId : text; error : opt ErrorInfo };
 ```
 ## TransactionResult
 ```rust
@@ -85,7 +85,7 @@ type TransactionResponse = record { txId : text; error : opt ActorError };
         - code : Error code
         - msg : Error message
 */
-type TransactionResult = variant { Ok : TransactionResponse; Err : ActorError };
+type TransactionResult = variant { Ok : TransactionResponse; Err : ErrorInfo };
 ```
 ## TxRecord
 ```rust
@@ -110,11 +110,11 @@ type TxRecord = variant {
 /*
   TxRecordListResult
       Ok bool
-      ActorError
+      ErrorInfo
         - code : Error code
         - msg : Error message
 */
-type TxRecordListResult = variant { Ok : vec TxRecord; Err : ActorError };
+type TxRecordListResult = variant { Ok : vec TxRecord; Err : ErrorInfo };
 ```
 ## TxRecordResult
 ```rust
@@ -126,5 +126,5 @@ type TxRecordListResult = variant { Ok : vec TxRecord; Err : ActorError };
         - msg : Error message
       Forward query transaction record when the tx store in the auto-scaling storage
 */
-type TxRecordResult = variant { Ok : TxRecord; Err : ActorError; Forward : principal; };
+type TxRecordResult = variant { Ok : TxRecord; Err : ErrorInfo; Forward : principal; };
 ```
