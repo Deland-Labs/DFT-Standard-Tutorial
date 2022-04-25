@@ -12,7 +12,49 @@ sidebar_position: 2
 */
 type ErrorInfo = record { code : nat32; message : text };
 ```
-
+## BlockResult
+```rust
+/* 
+  BlockResult:
+  - Ok : CandidBlock
+  - Err : ErrorInfo
+  - Forward : principal
+*/
+type BlockResult = variant {
+  Ok : CandidBlock;
+  Err : ErrorInfo;
+  Forward : principal;
+};
+```
+## QueryBlocksResult
+```rust
+/* 
+  QueryBlocksResult
+  - blocks {vec CandidBlock}: blocks
+  - error {ErrorInfo}: error
+*/
+type QueryBlocksResult = record {
+  chainLength : nat;
+  certificate : opt vec nat8;
+  archivedBlocks : vec ArchivedBlocksRange;
+  blocks : vec CandidBlock;
+  firstBlockIndex : nat;
+};
+```
+## OperationResult
+```rust
+/*
+  OperationResult
+    Result type of method approve/burn/transfer/transferFrom etc.
+    Error :
+        - code : Error code
+        - msg : Error message
+*/
+type OperationResult = variant {
+  Ok : record { txId : text; error : opt ErrorInfo; blockHeight : nat };
+  Err : ErrorInfo;
+};
+```
 ## BooleanResult
 ```rust
 /* 
@@ -22,27 +64,121 @@ type ErrorInfo = record { code : nat32; message : text };
 */
 type BooleanResult = variant { Ok : bool; Err : ErrorInfo };
 ```
-
-## Fee
+## ArchiveInfo
 ```rust
-/*
-  Fee include minimum and rate
-  How to calc fee? fee = math.Max( transferValue * rate , minimum) 
+/* 
+  ArchiveInfo
+  - startBlockHeight {nat}: archive start block height
+  - endBlockHeight {nat}: archive end block height
+  - numBlocks {nat}: number of blocks in archive canister
+  - canisterId {principal}: archive canister id
 */
-type Fee = record { rate : nat; rate_decimals : nat8; minimum : nat };
+type ArchiveInfo = record {
+  startBlockHeight : nat;
+  endBlockHeight: nat;
+  numBlocks : nat;
+  canisterId : principal;
+};
 ```
-## MetaData
+## ArchivedBlocksRange
+```rust
+  ArchivedBlocksRange
+  - storageCanisterId {principal}: archive canister id
+  - start {nat}: start block height
+  - length {nat}: number of blocks in archive canister
+*/
+type ArchivedBlocksRange = record {
+  storageCanisterId : principal;
+  start : nat;
+  length : nat64;
+};
+```
+
+## CandidBlock
+```rust
+/* 
+  CandidBlock
+  - transaction {CandidTransaction}: transaction
+  - timestamp {nat}: block timestamp
+  - parentHash {nat}: block parent hash
+*/
+type CandidBlock = record {
+  transaction : CandidTransaction;
+  timestamp : nat64;
+  parentHash : opt vec nat8;
+};
+``` 
+## CandidTransaction
 ```rust
 /*
-  MetaData of token
+  Transaction of token
+  - operation {CandidOperation}: operation
+  - createdAt {nat64}: transaction created time
+*/
+type CandidTransaction = record {
+  createdAt : nat64;
+  operation : CandidOperation;
+};
+```
+## CandidOperation
+```rust
+/* 
+  CandidOperation:
+*/
+type CandidOperation = variant {
+  FeeToModify : record { newFeeTo : text; caller : principal };
+  Approve : record {
+    fee : nat;
+    value : nat;
+    owner : text;
+    caller : principal;
+    spender : text;
+  };
+  RemoveMinter : record { minter : principal; caller : principal };
+  FeeModify : record { newFee : CandidTokenFee; caller : principal };
+  AddMinter : record { minter : principal; caller : principal };
+  Transfer : record {
+    to : text;
+    fee : nat;
+    value : nat;
+    from : text;
+    caller : text;
+  };
+  OwnerModify : record { newOwner : principal; caller : principal };
+};
+```
+
+## CandidTokenFee
+```rust
+/*
+  CandidTokenFee include minimum and rate
+  How to calc fee? fee = math.Max( transferValue * rate , minimum) 
+  - minimum {nat}: minimum fee
+  - rate {nat32}: fee rate
+  - rateDecimals {nat8}: fee rate decimals
+*/
+type CandidTokenFee = record {
+  rate : nat32;
+  minimum : nat;
+  rateDecimals : nat8;
+};
+```
+## CandidTokenMetadata
+```rust
+/*
+  Metadata of token
   includes: 
           fee setting
           decimals
           name
-          totalSupply
           symbol
 */
-type MetaData = record { fee : Fee; decimals : nat8; name : text; totalSupply : nat; symbol : text; };
+type CandidTokenMetadata = record {
+  fee : CandidTokenFee;
+  decimals : nat8;
+  name : text;
+  symbol : text;
+};
 ```
 ## TokenHolder
 ```rust
@@ -56,75 +192,23 @@ type TokenHolder = variant { None; Account : text; Principal : principal };
 ```rust
 /*
   TokenInfo
-     The information of token
+  - certificate {opt vec nat8}: certificate
+  - owner {principal}: owner
+  - allowanceSize {nat64}: allowance size
+  - cycles {nat64}: cycles balance of token
+  - blockHeight {nat64}: block height of token
+  - holders {nat64}: token total holders count
+  - storages {vec principal}: token archive storage ids
+  - feeTo {text}: fee to address,support Account ID/Principal ID
 */
 type TokenInfo = record {
+  certificate : opt vec nat8;
   owner : principal;
-  allowanceSize : nat;
+  allowanceSize : nat64;
   cycles : nat64;
-  txCount : nat;
-  holders : nat;
+  blockHeight : nat;
+  holders : nat64;
   storages : vec principal;
-  feeTo : TokenHolder;
+  feeTo : text;
 };
-```
-## TransactionResponse
-```rust
-/*
-  TransactionResponse
-    Response type of method approve/burn/transfer/transferFrom 
-*/
-type TransactionResponse = record { txId : text; error : opt ErrorInfo };
-```
-## TransactionResult
-```rust
-/*
-  TransactionResult
-    Result type of method approve/burn/transfer/transferFrom
-    Error :
-        - code : Error code
-        - msg : Error message
-*/
-type TransactionResult = variant { Ok : TransactionResponse; Err : ErrorInfo };
-```
-## TxRecord
-```rust
-/*
-  Transaction Record of token
-  includes: 
-          Approve transaction record
-          Transfer transaction record
-*/
-type TxRecord = variant {
-  DescModify : record { nat; principal; vec record { text; text }; nat64; nat64; };
-  FeeToModify : record { nat; principal; TokenHolder; nat64; nat64 };
-  Approve : record { nat; TokenHolder; TokenHolder; TokenHolder; nat; nat; nat64; nat64; };
-  LogoModify : record { nat; principal; vec nat8; nat64; nat64 };
-  FeeModify : record { nat; principal; Fee; nat64; nat64 };
-  Transfer : record { nat; TokenHolder; TokenHolder; TokenHolder; nat; nat; nat64; nat64; };
-  OwnerModify : record { nat; principal; principal; nat64; nat64 };
-};
-```
-## TxRecordListResult
-```rust
-/*
-  TxRecordListResult
-      Ok bool
-      ErrorInfo
-        - code : Error code
-        - msg : Error message
-*/
-type TxRecordListResult = variant { Ok : vec TxRecord; Err : ErrorInfo };
-```
-## TxRecordResult
-```rust
-/*
-  TxRecordResult
-      Ok TxRecord
-      Error 
-        - code : Error code
-        - msg : Error message
-      Forward query transaction record when the tx store in the auto-scaling storage
-*/
-type TxRecordResult = variant { Ok : TxRecord; Err : ErrorInfo; Forward : principal; };
 ```

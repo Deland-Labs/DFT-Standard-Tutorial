@@ -52,11 +52,6 @@ Release date: 2022-01-27
 
 - Improve: privacy protection
 
-<h2>v0.2.1</h2>
-Release date: 2022-01-27
-
-- Improve: privacy protection
-
 <h2>v0.3.0</h2>
 Release date: 2022-02-04
 
@@ -68,3 +63,12 @@ Release date: 2022-03-28
 
 - Refactor: Response type
 - Integration Testing & Bug Fixing
+
+<h2>v0.5.0</h2>
+Release date: 2022-04-17
+- Blockchain support for Token, integration of the ledger design, interface optimization design
+- TokenHolder type changed to AccountIdentifier to ensure that Principal receipts and default AccountIdentifier are consistent
+- Use bincode serialization to optimize the size of stored data
+- Auto-scaling failure and archiving failure of the fallback policy optimization
+- Remove nonce, use transaction hash to do better anti-duplication
+- Auto-scaling storage optimization

@@ -156,7 +156,7 @@ The design of Token Standard will consider the difference between Dfinity and Et
 
 - Consideration:If the nonce mechanism is supported, it can prevent users from repeatedly submitting transactions
 
-- Solution: Support nonce mechanism
+- Solution: use created time to implement a simple nonce mechanism
 
 ### What other functions does the Dfinity Fungible Token standard need to implement?
  
