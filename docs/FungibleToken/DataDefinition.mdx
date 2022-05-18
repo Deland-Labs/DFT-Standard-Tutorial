@@ -16,12 +16,12 @@ type ErrorInfo = record { code : nat32; message : text };
 ```rust
 /* 
   BlockResult:
-  - Ok : CandidBlock
+  - Ok : Block
   - Err : ErrorInfo
   - Forward : principal
 */
 type BlockResult = variant {
-  Ok : CandidBlock;
+  Ok : Block;
   Err : ErrorInfo;
   Forward : principal;
 };
@@ -30,14 +30,14 @@ type BlockResult = variant {
 ```rust
 /* 
   QueryBlocksResult
-  - blocks {vec CandidBlock}: blocks
+  - blocks {vec Block}: blocks
   - error {ErrorInfo}: error
 */
 type QueryBlocksResult = record {
   chainLength : nat;
   certificate : opt vec nat8;
   archivedBlocks : vec ArchivedBlocksRange;
-  blocks : vec CandidBlock;
+  blocks : vec Block;
   firstBlockIndex : nat;
 };
 ```
@@ -51,7 +51,7 @@ type QueryBlocksResult = record {
         - msg : Error message
 */
 type OperationResult = variant {
-  Ok : record { txId : text; error : opt ErrorInfo; blockHeight : nat };
+  Ok : record { txId : text; blockHeight : nat };
   Err : ErrorInfo;
 };
 ```
@@ -94,38 +94,38 @@ type ArchivedBlocksRange = record {
 };
 ```
 
-## CandidBlock
+## Block
 ```rust
 /* 
-  CandidBlock
-  - transaction {CandidTransaction}: transaction
+  Block
+  - transaction {Transaction}: transaction
   - timestamp {nat}: block timestamp
   - parentHash {nat}: block parent hash
 */
-type CandidBlock = record {
-  transaction : CandidTransaction;
+type Block = record {
+  transaction : Transaction;
   timestamp : nat64;
   parentHash : opt vec nat8;
 };
 ``` 
-## CandidTransaction
+## Transaction
 ```rust
 /*
   Transaction of token
-  - operation {CandidOperation}: operation
+  - operation {Operation}: operation
   - createdAt {nat64}: transaction created time
 */
-type CandidTransaction = record {
+type Transaction = record {
   createdAt : nat64;
-  operation : CandidOperation;
+  operation : Operation;
 };
 ```
-## CandidOperation
+## Operation
 ```rust
 /* 
-  CandidOperation:
+  Operation:
 */
-type CandidOperation = variant {
+type Operation = variant {
   FeeToModify : record { newFeeTo : text; caller : principal };
   Approve : record {
     fee : nat;
@@ -135,7 +135,7 @@ type CandidOperation = variant {
     spender : text;
   };
   RemoveMinter : record { minter : principal; caller : principal };
-  FeeModify : record { newFee : CandidTokenFee; caller : principal };
+  FeeModify : record { newFee : TokenFee; caller : principal };
   AddMinter : record { minter : principal; caller : principal };
   Transfer : record {
     to : text;
@@ -148,22 +148,22 @@ type CandidOperation = variant {
 };
 ```
 
-## CandidTokenFee
+## TokenFee
 ```rust
 /*
-  CandidTokenFee include minimum and rate
+  TokenFee include minimum and rate
   How to calc fee? fee = math.Max( transferValue * rate , minimum) 
   - minimum {nat}: minimum fee
   - rate {nat32}: fee rate
   - rateDecimals {nat8}: fee rate decimals
 */
-type CandidTokenFee = record {
+type TokenFee = record {
   rate : nat32;
   minimum : nat;
   rateDecimals : nat8;
 };
 ```
-## CandidTokenMetadata
+## TokenMetadata
 ```rust
 /*
   Metadata of token
@@ -173,8 +173,8 @@ type CandidTokenFee = record {
           name
           symbol
 */
-type CandidTokenMetadata = record {
-  fee : CandidTokenFee;
+type TokenMetadata = record {
+  fee : TokenFee;
   decimals : nat8;
   name : text;
   symbol : text;
@@ -182,33 +182,50 @@ type CandidTokenMetadata = record {
 ```
 ## TokenHolder
 ```rust
-/*
-  TokenHolder
-     Both support Account ID(ledger account ID) and Principal ID
-*/
-type TokenHolder = variant { None; Account : text; Principal : principal };
+type TokenHolder = text;
 ```
 ## TokenInfo
 ```rust
 /*
   TokenInfo
-  - certificate {opt vec nat8}: certificate
+  - fee {TokenFee}: fee setting
+  - chainLength {nat}: total block count of the token
+  - certificate {opt vec nat8}: certificate data of the token,it's alawys be the last block hash
   - owner {principal}: owner
   - allowanceSize {nat64}: allowance size
-  - cycles {nat64}: cycles balance of token
-  - blockHeight {nat64}: block height of token
   - holders {nat64}: token total holders count
-  - storages {vec principal}: token archive storage ids
-  - feeTo {text}: fee to address,support Account ID/Principal ID
+  - archiveCanisters {vec principal}: token archive storage canister ids
+  - feeTo {text}: fee to address
 */
 type TokenInfo = record {
+  fee : TokenFee;
+  chainLength : nat;
   certificate : opt vec nat8;
   owner : principal;
   allowanceSize : nat64;
-  cycles : nat64;
-  blockHeight : nat;
   holders : nat64;
-  storages : vec principal;
+  archiveCanisters : vec principal;
   feeTo : text;
+};
+```
+
+## TokenMetrics
+```rust
+/*
+  TokenMetrics
+  - chainLength {nat}: total block count of the token
+  - certificate {opt vec nat8}: certificate data of the token,it's alawys be the last block hash
+  - allowanceSize {nat64}: allowance size
+  - localBlockCount {nat}: block count in the token canister, 
+  - holders {nat64}: token total holders count
+  - cyclesBalance {nat}: cycles balance of the token canister,
+*/
+type TokenMetrics = record {
+  chainLength : nat;
+  certificate : opt vec nat8;
+  allowanceSize : nat64;
+  localBlockCount : nat;
+  holders : nat64;
+  cyclesBalance : nat;
 };
 ```

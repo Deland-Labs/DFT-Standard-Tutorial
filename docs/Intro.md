@@ -199,3 +199,6 @@ Based on the above problems and requirements,  the following draft standards are
 - [13] [infinity-swap: IS20](https://github.com/infinity-swap/IS20)
 
 - [14] [ICLighthouse: DRC20](https://github.com/iclighthouse/DRC_standards)
+
+- [15] [Dfinity: ledger](https://github.com/dfinity/ic/tree/master/rs/rosetta-api/ledger_canister)
+

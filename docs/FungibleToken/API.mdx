@@ -149,7 +149,7 @@ sidebar_position: 3
   //   - holder {text}: holder address, support Principal/AccountIdentifier format
   // Return:
   //   - (vec record { text; nat }) allowances of the holder, each record is {spender:text, allowance:nat}
-  allowancesOf : (holder: text) -> (vec record { TokenHolder; nat }) query;
+  allowancesOf : (holder: text) -> (vec record { text; nat }) query;
 ```
 ### transferFrom
 ```rust
@@ -188,7 +188,7 @@ sidebar_position: 3
   //       chainLength {nat}: total block count of the token,  
   //       holders {nat64}: total holder count of the token,
   //       allowanceSize {nat64}: total allowance count of the token,
-  //       feeTo {TokenHolder}: feeHolder,
+  //       feeTo {text}: feeHolder,
   //       fee {TokenFee}: 
   //       archiveCanisters: auto-scaling storage canister ids,
   //       certificate {opt vec nat8}: certificate data of the token,it's alawys be the last block hash
@@ -203,7 +203,7 @@ sidebar_position: 3
   //      localBlockCount {nat}: block count in the token canister,  
   //      holders {nat64}: total holder count of the token,
   //      allowanceSize {nat64}: total allowance count of the token,
-  //      cyclesBalance {nat}: auto-scaling storage canister ids,
+  //      cyclesBalance {nat}: cycles balance of the token canister,
   //      certificate {opt vec nat8}: certificate data of the token,it's alawys be the last block hash
   tokenMetrics : () -> (TokenMetrics) query;
 ```

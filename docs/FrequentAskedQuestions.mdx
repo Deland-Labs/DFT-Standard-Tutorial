@@ -4,40 +4,100 @@ sidebar_position: 4
 
 # Frequent Asked Questions
 
-## There are implementations of motoko and rust, which is the best choice?
-It is strongly recommended to use Rust implementation. Motoko has some limitations, you can get details [here](https://github.com/Deland-Labs/dfinity-fungible-token-standard/issues/1)
+## What is the purpose of the DFT?
 
-## How create my own token?
+Provide a high-quality token standard for the IC ecosystem
 
-### Create by source code
-#### Create Basic Standard Token
-```shell
-git clone https://github.com/Deland-Labs/fungible-token-standard.git
-cd fungible-token-standard/rust
-dfx create canister --all
-dfx build
-dfx canister --no-wallet  install dft_basic \
-	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { minimum = 1 : nat; rate = 0 : nat } , null)'
+## Why does DFT implement a built-in blockchain?
+
+The core value of the blockchain is trustless. DFT implements the built-in blockchain in order to make the token standard have the characteristics of trustless. The trustworthiness of the blockchain comes from the trust provided by the underlying cryptography, rather than any centralized organization/team, which is extremely important for the token standard.
+
+## Why is there no motoko implementation?
+
+Whether it is a motoko or a rust implementation, it is ultimately wasm, so I will build an implementation of the token standard based on rust. Thanks to the testing toolchain provided by the rust language, we can have good test coverage to ensure the quality of the token standard.
+
+## Is the DFT standard well tested?
+
+Of course, in the REAMME file where you see the code, there is the latest code test coverage provided by codecov, currently 85%+. Testing is an important means to ensure code quality. In order to provide a reliable token standard for the IC ecosystem, Deland Labs has not only done enough unit tests, but also done enough automated integration tests to cover a variety of token usage processes.
+
+## How to run tests?
+[Here you can see how to do unit testing and automate integration testing](./Test.mdx)
+## How is DFT different from other coding standards?
+
+During the implementation of DFT, the official Ledger implementation and all the token standard implementations we have seen in the community were referenced, and the advantages of the standards in the community were absorbed. Deland Labs believes that the most important thing about the token standard is to provide a credible proof of cryptography, so this DFT is the most important difference from other standards.
+
+## DFT has built-in extensions for mint and burn, how do I choose these extensions?
+
+DFT fully considers the needs of developers/projects in the process of implementation. DFT allows developers to choose the features they need through configuration through the features provided by rust.
+
+**DFT supports the following features:**
+
+- logger, which is a simple logger that can be used to log the information of the token standard in test environments.
+- basic, which is a basic token standard.
+- mint, which is a basic token standard with mint extensions(addMinter/removeMinter/mint).
+- burn, which is a basic token standard with burn extensions(burn/burnFrom).
+
+**How to use these features?**
+Just configure the features you need in dfx.json when compiling
+
+```json
+// basic
+{
+  "type": "custom",
+  "build": [
+    "cargo build --target wasm32-unknown-unknown --package  dft_token --release --no-default-features --features logger,basic",
+    "ic-cdk-optimizer target/wasm32-unknown-unknown/release/dft_token.wasm -o target/wasm32-unknown-unknown/release/dft_basic.wasm"
+    ],
+    "candid": "dft_token/src/token.did",
+    "wasm": "target/wasm32-unknown-unknown/release/dft_basic.wasm"
+}
+// burnable
+{
+  "type": "custom",
+  "build": [
+    "cargo build --target wasm32-unknown-unknown --package  dft_token --release  --no-default-features --features logger,basic,burnable",
+    "ic-cdk-optimizer target/wasm32-unknown-unknown/release/dft_token.wasm -o target/wasm32-unknown-unknown/release/dft_burnable.wasm"
+  ],
+  "candid": "dft_token/src/token.did",
+  "wasm": "target/wasm32-unknown-unknown/release/dft_burnable.wasm"
+}
+// mintable
+{
+  "type": "custom",
+  "build": [
+    "cargo build --target wasm32-unknown-unknown --package  dft_token --release  --no-default-features --features logger,basic,mintable",
+    "ic-cdk-optimizer target/wasm32-unknown-unknown/release/dft_token.wasm -o target/wasm32-unknown-unknown/release/dft_mintable.wasm"
+  ],
+  "candid": "dft_token/src/token.did",
+  "wasm": "target/wasm32-unknown-unknown/release/dft_mintable.wasm"
+}
+// all feature (basic/mintable/burnable)
+{
+  "type": "custom",
+  "build": [
+    "cargo build --target wasm32-unknown-unknown --package  dft_token --release  --no-default-features --features logger,basic,burnable,mintable,batch_mint,batch_transfer",
+    "ic-cdk-optimizer target/wasm32-unknown-unknown/release/dft_token.wasm -o target/wasm32-unknown-unknown/release/dft_all_features.wasm"
+  ],
+  "candid": "dft_token/src/token.did",
+  "wasm": "target/wasm32-unknown-unknown/release/dft_all_features.wasm"
+}
 ```
-#### Create Burnable Token
-```shell
-git clone https://github.com/Deland-Labs/fungible-token-standard.git
-cd fungible-token-standard/rust
-dfx create canister --all
-dfx build
-dfx canister --no-wallet  install dft_burnable \
-	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { minimum = 1 : nat; rate = 0 : nat } , null)'
-```
 
-#### Create Mintable Token
-```shell
-git clone https://github.com/Deland-Labs/fungible-token-standard.git
-cd fungible-token-standard/rust
-dfx create canister --all
-dfx build
-dfx canister --no-wallet  install dft_mintable \
-	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { minimum = 1 : nat; rate = 0 : nat } , null)'
-```
-### Create by issuance tool
+## How do I extend the features I need myself?
+Please refer to [How to extend burnable/mintable] in the code, both extensions can be used as sample codes for developers to extend DFT.
 
-**TODO**
+## Both burnable/mintable extensions do not involve the state of adding storage. What should I do if my extension involves adding the state that needs to be stored?
+This is also very simple. DFT also fully considers the needs of developers in the design process. DFT uses a simple three-layer architecture. If developers want to expand the stored data, they only need to add the data they need in the state:
+
+```
+#[derive(Default, Debug)]
+pub struct State {
+    pub token_setting: RefCell<TokenSetting>,
+    pub token_desc: RefCell<TokenDescription>,
+    pub blockchain: RefCell<Blockchain>,
+    pub balances: RefCell<TokenBalances>,
+    pub allowances: RefCell<TokenAllowances>,
+		// add some datas you need in the state
+		pub example_datas: RefCell<HashMap<String,Nat>>,
+}
+```

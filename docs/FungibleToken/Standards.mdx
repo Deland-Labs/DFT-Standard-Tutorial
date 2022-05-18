@@ -28,6 +28,7 @@ service : {
   setOwner : (principal, opt nat64) -> (BooleanResult);
   symbol : () -> (text) query;
   tokenInfo : () -> (TokenInfo) query;
+  tokenMetrics : () -> (TokenMetrics) query;
   totalSupply : () -> (nat) query;
   transfer : (opt vec nat8, text, nat, opt nat64) -> (OperationResult);
   transferFrom : (opt vec nat8, text, text, nat, opt nat64) -> (OperationResult);
@@ -45,6 +46,8 @@ service : {
 ### Mintable Extension
 ```rust 
 service : {
+  addMinter : (principal, opt nat64) -> (BooleanResult);
+  removeMinter : (principal, opt nat64) -> (BooleanResult);
   mint : (text, nat, opt nat64) -> (OperationResult);
 }
 ```
