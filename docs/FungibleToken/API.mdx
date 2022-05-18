@@ -28,12 +28,12 @@ sidebar_position: 3
 ### fee
 ```rust
   // Return token's fee setting
-  fee : () -> (Fee) query;
+  fee : () -> (TokenFee) query;
 ```
 ### setFee
 ```rust
   // Set token's fee setting
-  setFee : (Fee, opt nat64) -> (BooleanResult);
+  setFee : (TokenFee, opt nat64) -> (BooleanResult);
 ```
 ### setFeeTo
 ```rust
@@ -43,7 +43,7 @@ sidebar_position: 3
 ### meta
 ```rust
   // Return the meta data of a token.
-  meta: () -> (MetaData) query;
+  meta: () -> (TokenMetadata) query;
 ```
 ### desc
 ```rust
@@ -52,7 +52,7 @@ sidebar_position: 3
   //   OFFICIAL_SITE, OFFICIAL_EMAIL, DESCRIPTION, WHITE_PAPER
   //   MEDIUM, BLOG, REDDIT, SLACK, FACEBOOK, TWITTER,
   //   GITHUB, TELEGRAM, WECHAT, LINKEDIN, DISCORD,
-  //   DSCVR, OPENCHAT, DISTRIKT, WEACT
+  //   DSCVR, OPENCHAT, DISTRIKT
 
   desc: () -> (vec record { text; text }) query;
 ```
@@ -71,7 +71,7 @@ sidebar_position: 3
   //   BooleanResult:
   //     - Ok: success
   //     - Err: fail
-  setDesc : (desc:vec record { text; text }) -> (BooleanResult);
+  setDesc : (desc: vec record { text; text }) -> (BooleanResult);
 ```
 ### logo
 ```rust
@@ -118,18 +118,6 @@ sidebar_position: 3
   //     - Err: fail
   setOwner : (owner: principal,createdAt: opt nat64) -> (BooleanResult);
 ```
-### tokenInfo
-```rust
-  // Return token's info:
-  // owner: OWNER,
-  //          holders: total holder count of the token,
-  //          allowance_size: total allowance count of the token,
-  //          fee_to: feeHolder,
-  //          tx_count: total transaction count of the token,
-  //          cycles: cycles balance of the token
-  //          storages : auto-scaling storage canister ids
-  tokenInfo : () -> (TokenInfo) query;
-```
 ### allowance
 ```rust
   // Returns the amount which spender is still allowed to withdraw from owner.
@@ -160,7 +148,7 @@ sidebar_position: 3
   // Parameter:
   //   - holder {text}: holder address, support Principal/AccountIdentifier format
   // Return:
-  //   - (vec record { text; nat }) allowances of the holder
+  //   - (vec record { text; nat }) allowances of the holder, each record is {spender:text, allowance:nat}
   allowancesOf : (holder: text) -> (vec record { TokenHolder; nat }) query;
 ```
 ### transferFrom
@@ -192,6 +180,46 @@ sidebar_position: 3
   transfer: (fromSubAccount:opt vec nat8, to: text, value: nat, createdAt: opt nat64) -> (OperationResult);
 ```
 
+### tokenInfo
+```rust
+  // Return:
+  //   - (TokenInfo) token's info :
+  //       owner {principal}: owner address
+  //       chainLength {nat}: total block count of the token,  
+  //       holders {nat64}: total holder count of the token,
+  //       allowanceSize {nat64}: total allowance count of the token,
+  //       feeTo {TokenHolder}: feeHolder,
+  //       fee {TokenFee}: 
+  //       archiveCanisters: auto-scaling storage canister ids,
+  //       certificate {opt vec nat8}: certificate data of the token,it's alawys be the last block hash
+  tokenInfo : () -> (TokenInfo) query;
+```
+
+### tokenMetrics
+```rust
+  // Return:
+  //  - (TokenMetrics) token metrics info :
+  //      chainLength {nat}: total block count of the token,  
+  //      localBlockCount {nat}: block count in the token canister,  
+  //      holders {nat64}: total holder count of the token,
+  //      allowanceSize {nat64}: total allowance count of the token,
+  //      cyclesBalance {nat}: auto-scaling storage canister ids,
+  //      certificate {opt vec nat8}: certificate data of the token,it's alawys be the last block hash
+  tokenMetrics : () -> (TokenMetrics) query;
+```
+
+### archives
+```rust
+  // Get all archives info
+  // Return:
+  //   - (vec ArchiveInfo) archives info :
+  //       canisterId {principal}: archive storage canister id,
+  //       numblocks {nat}: the count of blocks in the archive,
+  //       startBlockHeight {nat}: the start block height of the archive,
+  //       endBlockHeight {nat}: the end block height of the archive,
+  archives : () -> (vec ArchiveInfo) query;
+```
+
 ### blockByHeight
 ```rust
   // Get block by block height
@@ -211,6 +239,11 @@ sidebar_position: 3
   //   - size: take size blocks from startHeight
   // Return:
   //   - QueryBlocksResult:   return blocks in the token and archived block storage canister ids with the block range
+  //       chainLength {nat}: total block count of the token,
+  //       blocks {vec Block}: blocks result in the token for the query,
+  //       archiveBlocks {vec ArchivedBlocksRange}: blocks result in the archived block storage canister ids for the query,
+  //       firstBlockIndex {nat8}: the index of the first block in the token canister,
+  //       certificate {opt vec nat8}: certificate data of the token,it's alawys be the last block hash
   blocksByQuery : (startHeight:nat, size:nat64) -> (QueryBlocksResult) query;
 ```
 
@@ -237,8 +270,25 @@ sidebar_position: 3
   burnFrom : (spenderSubAccount: opt vec nat8, owner: text, value: nat,createdAt: opt nat64) -> (OperationResult);
 ```
 ## Mintable Extension API
+### addMinter
+```rust
+  // Add minter, who has permission to mint tokens
+  // Parameter:
+  //   - minter {principal}: minter address
+  //   - createdAt {opt nat64}: Use the current timestamp if not provided
+  addMinter : (minter: principal, createdAt: opt nat64) -> (BooleanResult);
+```
+### removeMinter
+```rust
+  // Remove minter
+  // Parameter:
+  //   - minter {principal}: minter address
+  //   - createdAt {opt nat64}: Use the current timestamp if not provided
+  removeMinter : (minter: principal, createdAt: opt nat64) -> (BooleanResult);
+```
+
 ### mint
-```rust 
+```rust
   // Mint token to [address to]
   // Parameter:
   //  - to : mint to address, support Principal/AccountIdentifier format
