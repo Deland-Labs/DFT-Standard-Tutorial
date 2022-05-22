@@ -22,6 +22,12 @@ Of course, in the REAMME file where you see the code, there is the latest code t
 
 ## How to run tests?
 [Here you can see how to do unit testing and automate integration testing](./Test.mdx)
+
+## How to create my owner token?
+```shell
+dfx canister install dft_basic \
+	--argument '(null ,null ,"Your Token Name", "Your Token Symbol", 18:nat8, 100000000000000000000000000:nat, record { minimum = 1 : nat; rate = 0 : nat32,rateDecimals= 2:nat8 } , null, null)'
+```
 ## How is DFT different from other coding standards?
 
 During the implementation of DFT, the official Ledger implementation and all the token standard implementations we have seen in the community were referenced, and the advantages of the standards in the community were absorbed. Deland Labs believes that the most important thing about the token standard is to provide a credible proof of cryptography, so this DFT is the most important difference from other standards.
@@ -98,6 +104,6 @@ pub struct State {
     pub balances: RefCell<TokenBalances>,
     pub allowances: RefCell<TokenAllowances>,
 		// add some datas you need in the state
-		pub example_datas: RefCell<HashMap<String,Nat>>,
+    pub example_datas: RefCell<YourDataStruct>,
 }
 ```
