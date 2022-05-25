@@ -92,7 +92,8 @@ Just configure the features you need in dfx.json when compiling
 ## How do I extend the features I need myself?
 Please refer to [How to extend burnable/mintable] in the code, both extensions can be used as sample codes for developers to extend DFT.
 
-## Both burnable/mintable extensions do not involve the state of adding storage. What should I do if my extension involves adding the state that needs to be stored?
+## What should I do if my extension involves adding the state that needs to be stored?
+
 This is also very simple. DFT also fully considers the needs of developers in the design process. DFT uses a simple three-layer architecture. If developers want to expand the stored data, they only need to add the data they need in the state:
 
 ```
@@ -103,7 +104,7 @@ pub struct State {
     pub blockchain: RefCell<Blockchain>,
     pub balances: RefCell<TokenBalances>,
     pub allowances: RefCell<TokenAllowances>,
-		// add some datas you need in the state
+	// add some datas you need in the state
     pub example_datas: RefCell<YourDataStruct>,
 }
 ```
