@@ -21,8 +21,6 @@ onTokenReceived : (block_height: nat, transfer_from: text, transfer_value nat) -
 When the token is executed in the transferFrom/transfer method, the recipient will be notified.
 
 ## What information is included in the notice the payee receives?
-
-It will contain 4 messages.
 1. get the canister id of the token by getting the caller
 2. block_height: nat , the block height of the transfer transaction
 3. transfer_from: text , the address of the sender
