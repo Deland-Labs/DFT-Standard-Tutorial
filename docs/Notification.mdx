@@ -1,0 +1,29 @@
+---
+sidebar_position: 4
+---
+
+# Notification
+
+## Background
+
+In some scenarios, the recipient receives the payment and expects to be notified in a timely manner. 
+DFT's Notification is designed to meet this scenario.
+
+## What kind of payees can be notified?
+
+The payee can only be notified if it is a canister, and the receiver canister must implement the following methods.
+```
+onTokenReceived : (block_height: nat, transfer_from: text, transfer_value nat) -> ();
+```
+
+## When the payee will be notified?
+
+When the token is executed in the transferFrom/transfer method, the recipient will be notified.
+
+## What information is included in the notice the payee receives?
+
+It will contain 4 messages.
+1. get the canister id of the token by getting the caller
+2. block_height: nat , the block height of the transfer transaction
+3. transfer_from: text , the address of the sender
+4. transfer_value nat , the transfer value of the transaction
