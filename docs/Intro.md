@@ -139,7 +139,7 @@ The design of Token Standard will consider the difference between Dfinity and Et
   - For security reasons, For security reasons, do not call the canister of the location inside the canister,[why?Inter-canister calls](https://www.joachim-breitner.de/blog/788-How_to_audit_an_Internet_Computer_canister)
   
 - Solution: 
-  - Neither is supported
+  - Notify is supported (cdk0.5.1, one-way notify)
 
 9. ApproveAndCall VS TransferAndCall
 
