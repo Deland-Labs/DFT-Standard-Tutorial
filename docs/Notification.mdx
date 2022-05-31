@@ -11,7 +11,7 @@ DFT's Notification is designed to meet this scenario.
 
 ## What kind of payees can be notified?
 
-The payee can only be notified if it is a canister, and the receiver canister must implement the following methods.
+The payee can only be notified if it is a canister, and the receiver canister must implement with the following methods.
 [Here](https://github.com/Deland-Labs/fungible-token-standard/blob/53b347d53c89ce86834e49a4c02d331bfa883a0e/src/dft_receiver/src/receiver.rs#L33) is a rust example 
 ```
 onTokenReceived : (block_height: nat, transfer_from: text, transfer_value nat) -> ();
