@@ -4,9 +4,9 @@ sidebar_position: 90
 
 # Frequent Asked Questions
 
-## What is the purpose of the DFT?
+## What is the purpose of DFT?
 
-Provide a high-quality token standard for the IC ecosystem
+DFT aim to provide a high-quality token standard for the IC ecosystem
 
 ## Why does DFT implement a built-in blockchain?
 
@@ -14,11 +14,11 @@ The core value of the blockchain is trustless. DFT implements the built-in block
 
 ## Why is there no motoko implementation?
 
-Whether it is a motoko or a rust implementation, it is ultimately wasm, so I will build an implementation of the token standard based on rust. Thanks to the testing toolchain provided by the rust language, we can have good test coverage to ensure the quality of the token standard.
+Whether it is a motoko or a rust implementation, it is ultimately wasm, so we decide to build an implementation of the token standard based on rust. Thanks to the testing toolchain provided by the rust language, we can have good test coverage to ensure the quality of the token standard.
 
 ## Is the DFT standard well tested?
 
-Of course, in the REAMME file where you see the code, there is the latest code test coverage provided by codecov, currently 85%+. Testing is an important means to ensure code quality. In order to provide a reliable token standard for the IC ecosystem, Deland Labs has not only done enough unit tests, but also done enough automated integration tests to cover a variety of token usage processes.
+Of course, in the README file where you see the code, there is the latest code test coverage provided by codecov, currently 85%+. Testing is an important means to ensure code quality. In order to provide a reliable token standard for the IC ecosystem, Deland Labs has not only done enough unit tests, but also done enough automated integration tests to cover a variety of token usage processes.
 
 ## How to run tests?
 [Here you can see how to do unit testing and automate integration testing](./Test.mdx)
@@ -30,7 +30,7 @@ dfx canister install dft_basic \
 ```
 ## How is DFT different from other coding standards?
 
-During the implementation of DFT, the official Ledger implementation and all the token standard implementations we have seen in the community were referenced, and the advantages of the standards in the community were absorbed. Deland Labs believes that the most important thing about the token standard is to provide a credible proof of cryptography, so this DFT is the most important difference from other standards.
+During the implementation of DFT, the official Ledger implementation and all the token standard implementations we have seen in the community were referenced, and the advantages of the standards in the community were absorbed. Deland Labs believes that the most important thing about the token standard is to provide a credible proof of cryptography. Therefore, this DFT is the most important difference from other standards.
 
 ## DFT has built-in extensions for mint and burn, how do I choose these extensions?
 
@@ -38,7 +38,7 @@ DFT fully considers the needs of developers/projects in the process of implement
 
 **DFT supports the following features:**
 
-- logger, which is a simple logger that can be used to log the information of the token standard in test environments.
+- logger, which is a simple logger that can be used to log the information of the token standard in testing environments.
 - basic, which is a basic token standard.
 - mint, which is a basic token standard with mint extensions(addMinter/removeMinter/mint).
 - burn, which is a basic token standard with burn extensions(burn/burnFrom).

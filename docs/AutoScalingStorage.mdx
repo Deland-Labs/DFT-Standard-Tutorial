@@ -6,13 +6,13 @@ sidebar_position: 3
 
 ## Background
 
-At present, the canister storage has been increased to 8G, but the memory storage is still 4G.
+At present, the canister storage has been increased to 8GB, but the memory storage is still 4GB.
 
-There is no storage API similar to the file system currently, which means that only 4G storage can be used.
+There is no similar storage API to the file system currently, which means that only 4GB storage can be used.
 
 ## Problem to be solved
 
-When we want to support saving more token transaction history, 4G storage will become a limitation.
+When we want to save more token transaction history, 4GB storage will become a limitation.
 
 ## What's auto-scaling storage
 
@@ -32,9 +32,9 @@ Yes, it has been implemented in DFT Standard
 
 ## Fallback strategy
 
-The transaction history will be stored in the token when a token created by the DFT standard has not enough cycles to create auto-scaling storage.
+The transaction history will be stored in the token, when a token created by the DFT standard does not have enough cycles to create auto-scaling storage.
 
-When the token has enough cycles to create it, the transaction history store in the token will move to the auto-scaling storage.
+When the token has enough cycles to create it, the transaction history stored in the token will move to the auto-scaling storage.
 
 ## Use Case
 
@@ -42,4 +42,4 @@ When the token has enough cycles to create it, the transaction history store in 
 Auto-scaling storage allows tokens created by the DFT standard to have unlimited transaction history storage
 
 ### Test
-When issuing a token for testing, auto-scaling storage will not be created until more than 2000 txs. 2000txs can meet the needs of most test scenarios, it is unnecessary to consume cycles to create additional storage
+When issuing a token for testing, auto-scaling storage will not be created until more than 2000 txs. Moreover, 2000txs can meet the needs of most test scenarios, it is unnecessary to consume cycles to create additional storage
